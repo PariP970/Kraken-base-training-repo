@@ -18,6 +18,7 @@ import frc.robot.commands.EmergencyStopMechanismsCmd;
 
 // ===== Swerve Specific ===== //
 import frc.robot.commands.SwerveJoystickCmd;
+import frc.robot.subsystems.GriffinSubsystem;              
 import frc.robot.subsystems.SwerveSubsystem;
 
 
@@ -30,6 +31,7 @@ public class RobotContainer {
 
     // Subsystems
     private final SwerveSubsystem swerveSubsystem;
+    private final GriffinSubsystem griffinSubsystem;        
 
     // Control Inputs
     private final Joystick driverJoystick = new Joystick(OIConstants.kOperatorControllerPort);
@@ -41,6 +43,7 @@ public class RobotContainer {
     public RobotContainer() {
 
         swerveSubsystem = new SwerveSubsystem();
+        griffinSubsystem = new GriffinSubsystem();          
 
 
         swerveSubsystem.setDefaultCommand(new SwerveJoystickCmd(
