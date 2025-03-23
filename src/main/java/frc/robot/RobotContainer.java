@@ -18,7 +18,6 @@ import frc.robot.commands.EmergencyStopMechanismsCmd;
 
 // ===== Swerve Specific ===== //
 import frc.robot.commands.SwerveJoystickCmd;
-import frc.robot.subsystems.GriffinSubsystem;              
 import frc.robot.subsystems.SwerveSubsystem;
 
 
@@ -31,28 +30,24 @@ public class RobotContainer {
 
     // Subsystems
     private final SwerveSubsystem swerveSubsystem;
-    private final GriffinSubsystem griffinSubsystem;        
 
     // Control Inputs
-    private final Joystick driverJoystick = new Joystick(OIConstants.kOperatorControllerPort);
-    private final Joystick translateStick = new Joystick(OIConstants.kDriverTranslateStickPort);
-    private final Joystick rotateStick = new Joystick(OIConstants.kDriverRotateStickPort);
+    private final Joystick controller = new Joystick(OIConstants.kOperatorControllerPort);
 
 
 
     public RobotContainer() {
 
         swerveSubsystem = new SwerveSubsystem();
-        griffinSubsystem = new GriffinSubsystem();          
 
 
         swerveSubsystem.setDefaultCommand(new SwerveJoystickCmd(
             swerveSubsystem,
-            () -> -translateStick.getRawAxis(OIConstants.kDriverYAxis),
-            () -> -translateStick.getRawAxis(OIConstants.kDriverXAxis),
-            () -> rotateStick.getRawAxis(0),
-            () -> translateStick.getRawButton(1),
-            () -> rotateStick.getRawButton(1)));
+            () -> -controller.getRawAxis(OIConstants.kDriverYAxis),
+            () -> -controller.getRawAxis(OIConstants.kDriverXAxis),
+            () -> controller.getRawAxis(OIConstants.kDriverRotAxis),
+            () -> controller.getRawButton(OIConstants.kController_rightBumper),
+            () -> controller.getRawButton(OIConstants.kController_leftBumper)));
 
 
         configureBindings();
@@ -62,8 +57,8 @@ public class RobotContainer {
 
     private void configureBindings() {
 
-        new JoystickButton(driverJoystick, OIConstants.kDriverResetGyroButtonId).onTrue(swerveSubsystem.zeroHeading());
-        // new JoystickButton(driverJoystick, OIConstants.kDriverStopButtonId).onTrue(new EmergencyStopMechanismsCmd());            MUST HAVE INCASE OF EMERGENCY
+        new JoystickButton(controller, OIConstants.kDriverResetGyroButtonId).onTrue(swerveSubsystem.zeroHeading());
+        // new JoystickButton(controller, OIConstants.kDriverStopButtonId).onTrue(new EmergencyStopMechanismsCmd());
     }
 
 
