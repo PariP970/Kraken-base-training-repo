@@ -1,6 +1,6 @@
 package frc.robot.subsystems;
 
-import com.kauailabs.navx.frc.AHRS;
+import com.studica.frc.AHRS;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -54,7 +54,7 @@ public class SwerveSubsystem extends SubsystemBase {
 
 
 
-    private final AHRS gyro = new AHRS(SPI.Port.kMXP);  
+    private final AHRS gyro = new AHRS(AHRS.NavXComType.kMXP_SPI);  
 
 
 
@@ -68,7 +68,7 @@ public class SwerveSubsystem extends SubsystemBase {
         new Thread(() -> {
             try {
                 Thread.sleep(1000);
-                gyro.setAngleAdjustment(180);
+                gyro.setAngleAdjustment(0);
                 zeroHeading();
             } catch (Exception e) {
             }
@@ -104,18 +104,18 @@ public class SwerveSubsystem extends SubsystemBase {
 
     public void setModuleStates(SwerveModuleState[] desiredStates) {
         SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, DriveConstants.kPhysicalMaxSpeedMetersPerSecond);
-        backLeft.setDesiredState(desiredStates[0]);
-        backRight.setDesiredState(desiredStates[1]);
-        frontLeft.setDesiredState(desiredStates[2]);
-        frontRight.setDesiredState(desiredStates[3]);
+        frontLeft.setDesiredState(desiredStates[0]);
+        frontRight.setDesiredState(desiredStates[1]);
+        backLeft.setDesiredState(desiredStates[2]);
+        backRight.setDesiredState(desiredStates[3]);
     }
 
     public SwerveModuleState[] getModuleStates() {
         SwerveModuleState[] newModuleStates = {
-            backLeft.getModuleState(),
-            backRight.getModuleState(),
             frontLeft.getModuleState(),
-            frontRight.getModuleState()
+            frontRight.getModuleState(),
+            backLeft.getModuleState(),
+            backRight.getModuleState()
         };
         return newModuleStates;
     }
