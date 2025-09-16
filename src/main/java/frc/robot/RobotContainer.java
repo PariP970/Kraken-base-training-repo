@@ -45,7 +45,7 @@ public class RobotContainer {
             swerveSubsystem,
             () -> -controller.getRawAxis(OIConstants.kDriverYAxis),
             () -> -controller.getRawAxis(OIConstants.kDriverXAxis),
-            () -> controller.getRawAxis(OIConstants.kDriverRotAxis),
+            () -> -controller.getRawAxis(OIConstants.kDriverRotAxis),
             () -> controller.getRawButton(OIConstants.kController_rightBumper),
             () -> controller.getRawButton(OIConstants.kController_leftBumper)));
 
